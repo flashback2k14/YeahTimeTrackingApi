@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../db/data.db"
+}
+
+model User {
+  id             String          @id @default(uuid())
+  name           String
+  email          String          @unique
+  pwHash         String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  authentication Authentication?
+  actionGroups   ActionGroup[]
+  actions        Action[]
+  activeTasks    ActiveTask[]
+  tasks          Task[]
+}
+
+model Authentication {
+  id        String   @id @default(uuid())
+  apiToken  String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ActionGroup {
+  id        String   @id @default(uuid())
+  name      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  action    Action?
+}
+
+model Action {
+  id            String      @id @default(uuid())
+  name          String      @unique
+  type          String      @unique
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+  actionGroup   ActionGroup @relation(fields: [actionGroupId], references: [id])
+  actionGroupId String      @unique
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model ActiveTask {
+  id        String   @id @default(uuid())
+  type      String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Task {
+  id            String   @id @default(uuid())
+  state         String   @unique
+  type          String   @unique
+  durationInSec Int
+  comment       String
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
