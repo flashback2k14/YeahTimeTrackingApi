@@ -1,1 +1,20 @@
+### get all users
 http://localhost:3000/users
+
+### signup
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+  "email": "lorem@ipsum.test",
+  "password": "Test1234"
+}
+
+### signin
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "lorem@ipsum.test",
+  "password": "Test1234"
+}

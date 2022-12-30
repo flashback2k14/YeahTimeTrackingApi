@@ -17,8 +17,9 @@ const authRouter = new AuthRouter(new AuthRepository(prisma));
 app.use(express.json());
 
 // setup endpoints
-app.use('/auth', authRouter.routes);
+app.use('/auth', authRouter.routes());
 
+// only for testing
 app.get('/users', async (req, res) => {
   const users = await prisma.user.findMany();
   res.json(users);
