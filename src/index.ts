@@ -21,7 +21,16 @@ app.use('/auth', authRouter.routes());
 
 // only for testing
 app.get('/users', async (req, res) => {
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    include: {
+      _count: true,
+      actionGroups: true,
+      actions: true,
+      activeTasks: true,
+      authentication: true,
+      tasks: true,
+    },
+  });
   res.json(users);
 });
 
