@@ -4,20 +4,24 @@
 
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
-import { AuthRepository, AuthRouter } from './auth';
+import { AuthRepository, AuthRouter, checkAuthState } from './domains/auth';
+import { SettingRepository, SettingRouter } from './domains/setting';
 
 // init external modules
 const prisma = new PrismaClient();
 const app = express();
+const port = process.env.PORT || 3000;
 
 // init own modules
 const authRouter = new AuthRouter(new AuthRepository(prisma));
+const settingRouter = new SettingRouter(new SettingRepository(prisma));
 
 // setup express
 app.use(express.json());
 
 // setup endpoints
 app.use('/auth', authRouter.routes());
+app.use('/settings', checkAuthState, settingRouter.routes());
 
 // only for testing
 app.get('/users', async (req, res) => {
@@ -35,4 +39,4 @@ app.get('/users', async (req, res) => {
 });
 
 // running server
-app.listen(3000, () => console.log('REST API server ready at: http://localhost:3000'));
+app.listen(port, () => console.log(`REST API server ready at: http://localhost:${port}`));

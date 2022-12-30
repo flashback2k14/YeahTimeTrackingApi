@@ -1,5 +1,5 @@
 import { PrismaClient, User } from '@prisma/client';
-import { createToken, decrypt, encrypt } from '../helper';
+import { createToken, decrypt, encrypt } from '../../helper';
 
 export type AuthUser = Pick<User, 'id' | 'email' | 'name' | 'createdAt' | 'updatedAt'>;
 
@@ -32,11 +32,11 @@ class AuthRepository {
       throw new Error('Authentication failed. Wrong password.');
     }
 
-    // create a token
-    const token = createToken(foundUser);
-
     // delete password before return the user
     const { pwHash, ...user } = foundUser;
+
+    // create a token
+    const token = createToken(user);
 
     // return result
     return {

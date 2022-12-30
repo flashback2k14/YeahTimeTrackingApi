@@ -1,5 +1,13 @@
+### --------
+### TESTING 
+### --------
+
 ### get all users
 http://localhost:3000/users
+
+### -----
+### AUTH 
+### -----
 
 ### signup
 POST http://localhost:3000/auth/signup
@@ -11,6 +19,7 @@ Content-Type: application/json
 }
 
 ### signin
+# @name login
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
@@ -18,3 +27,80 @@ Content-Type: application/json
   "email": "lorem@ipsum.test",
   "password": "Test1234"
 }
+
+### ---------
+### SETTINGS 
+### ---------
+
+@authToken = {{login.response.body.token}}
+
+### create apitoken
+POST http://localhost:3000/settings/authentication
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "apiToken": "1234567890"
+}
+
+### get apitoken
+GET http://localhost:3000/settings/authentication
+x-access-token: {{authToken}}
+
+### create action group #1
+# @name group1
+POST http://localhost:3000/settings/action-groups
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "group #1"
+}
+
+### create action group #2
+# @name group2
+POST http://localhost:3000/settings/action-groups
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "group #2"
+}
+
+### get action groups
+# @name groups
+GET http://localhost:3000/settings/action-groups
+x-access-token: {{authToken}}
+
+
+@g1 = "26c39082-5529-42db-a484-c57e23e5ee20"
+@g2 = "7c530a5a-4440-4453-89d4-6811f3783b2a"
+
+### create action #1
+# @name action1
+POST http://localhost:3000/settings/actions
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "action #1",
+  "type": "type1",
+  "groupId": {{g1}}
+}
+
+### create action #2
+# @name action2
+POST http://localhost:3000/settings/actions
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "action #2",
+  "type": "type2",
+  "groupId": {{g2}}
+}
+
+### get actions
+# @name actions
+GET http://localhost:3000/settings/actions
+x-access-token: {{authToken}}
