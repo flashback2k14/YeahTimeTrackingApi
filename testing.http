@@ -34,6 +34,10 @@ Content-Type: application/json
 
 @authToken = {{login.response.body.token}}
 
+### ---------------
+### AUTHENTICATION 
+### ---------------
+
 ### create apitoken
 POST http://localhost:3000/settings/authentication
 Content-Type: application/json
@@ -44,8 +48,28 @@ x-access-token: {{authToken}}
 }
 
 ### get apitoken
+# @name auth
 GET http://localhost:3000/settings/authentication
 x-access-token: {{authToken}}
+
+@authId = {{auth.response.body.id}}
+
+### update apitoken
+PUT http://localhost:3000/settings/authentication
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "apiToken": "0987654321"
+}
+
+### delete apitoken
+DELETE http://localhost:3000/settings/authentication/{{authId}}
+x-access-token: {{authToken}}
+
+### --------------
+### ACTION GROUPS 
+### --------------
 
 ### create action group #1
 # @name group1
@@ -72,6 +96,9 @@ x-access-token: {{authToken}}
 GET http://localhost:3000/settings/action-groups
 x-access-token: {{authToken}}
 
+### --------
+### ACTIONS 
+### --------
 
 @g1 = "26c39082-5529-42db-a484-c57e23e5ee20"
 @g2 = "7c530a5a-4440-4453-89d4-6811f3783b2a"

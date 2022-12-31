@@ -15,6 +15,19 @@ class AuthenticationRepository {
       },
     });
   }
+
+  async update(userId: string, newApiToken: string): Promise<Authentication> {
+    return await this.prisma.authentication.update({
+      where: { userId },
+      data: {
+        apiToken: newApiToken,
+      },
+    });
+  }
+
+  async delete(id: string): Promise<Authentication> {
+    return await this.prisma.authentication.delete({ where: { id } });
+  }
 }
 
 export default AuthenticationRepository;

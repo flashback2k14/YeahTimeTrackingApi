@@ -28,6 +28,26 @@ class AuthenticationRouter extends AbstractRouter {
         res.status(400).json({ error });
       }
     });
+
+    this.router.put('/authentication', async (req: Request, res: Response) => {
+      try {
+        const userId = getUserId(req);
+        const data = await this.repo.update(userId, req.body.apiToken);
+        res.status(200).json(data);
+      } catch (error) {
+        res.status(400).json({ error });
+      }
+    });
+
+    this.router.delete('/authentication/:id', async (req: Request, res: Response) => {
+      try {
+        const { id } = req.params;
+        const data = await this.repo.delete(id);
+        res.status(200).json(data);
+      } catch (error) {
+        res.status(400).json({ error });
+      }
+    });
   }
 }
 
