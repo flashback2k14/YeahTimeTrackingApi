@@ -4,8 +4,18 @@
 
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
-import { AuthRepository, AuthRouter, checkAuthState } from './domains/auth';
-import { SettingRepository, SettingRouter } from './domains/setting';
+
+import {
+  ActionGroupRepository,
+  ActionGroupRouter,
+  ActionRepository,
+  ActionRouter,
+  AuthenticationRepository,
+  AuthenticationRouter,
+  AuthRepository,
+  AuthRouter,
+  checkAuthState,
+} from './domains';
 
 // init external modules
 const prisma = new PrismaClient();
@@ -14,14 +24,18 @@ const port = process.env.PORT || 3000;
 
 // init own modules
 const authRouter = new AuthRouter(new AuthRepository(prisma));
-const settingRouter = new SettingRouter(new SettingRepository(prisma));
+const settingAuthenticationRouter = new AuthenticationRouter(new AuthenticationRepository(prisma));
+const settingActionGroupsRouter = new ActionGroupRouter(new ActionGroupRepository(prisma));
+const settingActionsRouter = new ActionRouter(new ActionRepository(prisma));
 
 // setup express
 app.use(express.json());
 
 // setup endpoints
 app.use('/auth', authRouter.routes());
-app.use('/settings', checkAuthState, settingRouter.routes());
+app.use('/settings', checkAuthState, settingAuthenticationRouter.routes());
+app.use('/settings', checkAuthState, settingActionGroupsRouter.routes());
+app.use('/settings', checkAuthState, settingActionsRouter.routes());
 
 // only for testing
 app.get('/users', async (req, res) => {
