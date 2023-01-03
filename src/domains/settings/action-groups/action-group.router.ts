@@ -31,8 +31,9 @@ class ActionGroupRouter extends AbstractRouter {
 
     this.router.put('/action-groups/:id', async (req: Request, res: Response) => {
       try {
+        const userId = getUserId(req);
         const { id } = req.params;
-        const data = await this.repo.update(id, req.body.name);
+        const data = await this.repo.update(userId, id, req.body.name);
         res.status(200).json(data);
       } catch (error) {
         res.status(400).json({ error });
@@ -41,8 +42,9 @@ class ActionGroupRouter extends AbstractRouter {
 
     this.router.delete('/action-groups/:id', async (req: Request, res: Response) => {
       try {
+        const userId = getUserId(req);
         const { id } = req.params;
-        const data = await this.repo.delete(id);
+        const data = await this.repo.delete(userId, id);
         res.status(200).json(data);
       } catch (error) {
         res.status(400).json({ error });

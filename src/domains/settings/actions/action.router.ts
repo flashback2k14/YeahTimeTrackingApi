@@ -32,8 +32,9 @@ class ActionRouter extends AbstractRouter {
 
     this.router.put('/actions/:id', async (req: Request, res: Response) => {
       try {
+        const userId = getUserId(req);
         const { id } = req.params;
-        const data = await this.repo.update(id, req.body.name, req.body.type);
+        const data = await this.repo.update(userId, id, req.body.name, req.body.type);
         res.status(200).json(data);
       } catch (error) {
         res.status(400).json({ error });
@@ -42,8 +43,9 @@ class ActionRouter extends AbstractRouter {
 
     this.router.delete('/actions/:id', async (req: Request, res: Response) => {
       try {
+        const userId = getUserId(req);
         const { id } = req.params;
-        const data = await this.repo.delete(id);
+        const data = await this.repo.delete(userId, id);
         res.status(200).json(data);
       } catch (error) {
         res.status(400).json({ error });

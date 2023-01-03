@@ -20,8 +20,6 @@ class ActionRepository {
       data: {
         name,
         type,
-        // userId,
-        // actionGroupId,
         user: {
           connect: {
             id: userId,
@@ -31,26 +29,18 @@ class ActionRepository {
           connect: {
             id: actionGroupId,
           },
-          // connectOrCreate: {
-          //   where: {
-          //     id: actionGroupId,
-          //   },
-          //   create: {
-          //     id: actionGroupId,
-          //     name: `Unknown action group ${Date.now()}`,
-          //     user: {
-          //       connect: {
-          //         id: userId,
-          //       },
-          //     },
-          //   },
-          // },
         },
       },
     });
   }
 
-  async update(id: string, newName: string, newType: string): Promise<Action> {
+  async update(userId: string, id: string, newName: string, newType: string): Promise<Action> {
+    await this.prisma.action.findFirstOrThrow({
+      where: {
+        userId,
+      },
+    });
+
     return await this.prisma.action.update({
       where: {
         id,
@@ -62,7 +52,13 @@ class ActionRepository {
     });
   }
 
-  async delete(id: string): Promise<Action> {
+  async delete(userId: string, id: string): Promise<Action> {
+    await this.prisma.action.findFirstOrThrow({
+      where: {
+        userId,
+      },
+    });
+
     return await this.prisma.action.delete({
       where: {
         id,

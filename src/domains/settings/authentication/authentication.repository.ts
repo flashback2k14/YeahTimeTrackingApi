@@ -4,7 +4,11 @@ class AuthenticationRepository {
   constructor(private prisma: PrismaClient) {}
 
   async getBy(userId: string): Promise<Authentication> {
-    return await this.prisma.authentication.findUniqueOrThrow({ where: { userId } });
+    return await this.prisma.authentication.findUniqueOrThrow({
+      where: {
+        userId,
+      },
+    });
   }
 
   async create(userId: string, apiToken: string): Promise<Authentication> {
@@ -29,8 +33,18 @@ class AuthenticationRepository {
     });
   }
 
-  async delete(id: string): Promise<Authentication> {
-    return await this.prisma.authentication.delete({ where: { id } });
+  async delete(userId: string, id: string): Promise<Authentication> {
+    await this.prisma.authentication.findFirstOrThrow({
+      where: {
+        userId,
+      },
+    });
+
+    return await this.prisma.authentication.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
 

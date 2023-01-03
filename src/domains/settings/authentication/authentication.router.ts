@@ -41,8 +41,9 @@ class AuthenticationRouter extends AbstractRouter {
 
     this.router.delete('/authentication/:id', async (req: Request, res: Response) => {
       try {
+        const userId = getUserId(req);
         const { id } = req.params;
-        const data = await this.repo.delete(id);
+        const data = await this.repo.delete(userId, id);
         res.status(200).json(data);
       } catch (error) {
         res.status(400).json({ error });
