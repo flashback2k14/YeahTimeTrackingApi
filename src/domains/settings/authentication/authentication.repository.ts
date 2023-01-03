@@ -11,7 +11,11 @@ class AuthenticationRepository {
     return await this.prisma.authentication.create({
       data: {
         apiToken,
-        userId,
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
       },
     });
   }

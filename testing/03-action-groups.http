@@ -1,0 +1,84 @@
+### --------
+### TESTING 
+### --------
+
+### get all users
+http://localhost:3000/users
+
+### -----
+### AUTH 
+### -----
+
+### signin
+# @name login
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "lorem@ipsum.test",
+  "password": "Test1234"
+}
+
+### ---------
+### SETTINGS 
+### ---------
+
+@authToken = {{login.response.body.token}}
+
+### --------------
+### ACTION GROUPS 
+### --------------
+
+### CREATE action group #1
+# @name group1
+POST http://localhost:3000/settings/action-groups
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "group #1"
+}
+
+### CREATE action group #2
+# @name group2
+POST http://localhost:3000/settings/action-groups
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "group #2"
+}
+
+### CREATE action group #3
+# @name group3
+POST http://localhost:3000/settings/action-groups
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "group #3"
+}
+
+### READ action groups
+# @name groups
+GET http://localhost:3000/settings/action-groups
+x-access-token: {{authToken}}
+
+###
+
+@groupId1 = {{groups.response.body.$.[0].id}}
+@groupId2 = {{groups.response.body.$.[1].id}}
+@groupId3 = {{groups.response.body.$.[2].id}}
+
+### UPDATE action group 1
+PUT http://localhost:3000/settings/action-groups/{{groupId1}}
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "new group #1"
+}
+
+### DELETE action group
+DELETE http://localhost:3000/settings/action-groups/{{groupId3}}
+x-access-token: {{authToken}}

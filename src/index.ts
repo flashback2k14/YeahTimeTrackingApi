@@ -33,9 +33,13 @@ app.use(express.json());
 
 // setup endpoints
 app.use('/auth', authRouter.routes());
-app.use('/settings', checkAuthState, settingAuthenticationRouter.routes());
-app.use('/settings', checkAuthState, settingActionGroupsRouter.routes());
-app.use('/settings', checkAuthState, settingActionsRouter.routes());
+app.use(
+  '/settings',
+  checkAuthState,
+  settingAuthenticationRouter.routes(),
+  settingActionGroupsRouter.routes(),
+  settingActionsRouter.routes()
+);
 
 // only for testing
 app.get('/users', async (req, res) => {

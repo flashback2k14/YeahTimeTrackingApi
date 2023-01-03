@@ -17,6 +17,7 @@
   "scripts": {
     "postinstall": "mkdir db",
     "dev": "ts-node src/index.ts",
+    "build": "npx tsc",
     "prisma": "prisma",
     "prisma:db:p": "prisma db pull",
     "format": "prettier --write ."
