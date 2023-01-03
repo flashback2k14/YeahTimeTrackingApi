@@ -37,8 +37,8 @@ CREATE TABLE "Action" (
     "actionGroupId" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "Action_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Action_actionGroupId_fkey" FOREIGN KEY ("actionGroupId") REFERENCES "ActionGroup" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Action_actionGroupId_fkey" FOREIGN KEY ("actionGroupId") REFERENCES "ActionGroup" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Action_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

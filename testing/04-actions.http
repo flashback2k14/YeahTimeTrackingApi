@@ -1,0 +1,101 @@
+### --------
+### TESTING 
+### --------
+
+### get all users
+http://localhost:3000/users
+
+### -----
+### AUTH 
+### -----
+
+### signin
+# @name login
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "lorem@ipsum.test",
+  "password": "Test1234"
+}
+
+### ---------
+### SETTINGS 
+### ---------
+
+@authToken = {{login.response.body.token}}
+
+### READ action groups
+# @name groups
+GET http://localhost:3000/settings/action-groups
+x-access-token: {{authToken}}
+
+###
+
+@groupId1 = {{groups.response.body.$.[0].id}}
+@groupId2 = {{groups.response.body.$.[1].id}}
+
+### --------
+### ACTIONS 
+### --------
+
+### CREATE action #1
+# @name action1
+POST http://localhost:3000/settings/actions
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "action #1",
+  "type": "type1",
+  "groupId": "{{groupId1}}"
+}
+
+### CREATE action #2
+# @name action2
+POST http://localhost:3000/settings/actions
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "action #2",
+  "type": "type2",
+  "groupId": "{{groupId2}}"
+}
+
+### CREATE action #3
+# @name action3
+POST http://localhost:3000/settings/actions
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "action #3",
+  "type": "type3",
+  "groupId": "{{groupId2}}"
+}
+
+### READ actions
+# @name actions
+GET http://localhost:3000/settings/actions
+x-access-token: {{authToken}}
+
+###
+
+@actionId1 = {{actions.response.body.$.[0].id}}
+@actionId2 = {{actions.response.body.$.[1].id}}
+@actionId3 = {{actions.response.body.$.[2].id}}
+
+### UPDATE action 1
+PUT http://localhost:3000/settings/actions/{{actionId1}}
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "name": "new action #1",
+  "type": "new type #1"
+}
+
+### DELETE action group
+DELETE http://localhost:3000/settings/actions/{{actionId3}}
+x-access-token: {{authToken}}

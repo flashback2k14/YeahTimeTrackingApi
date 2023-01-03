@@ -1,6 +1,9 @@
 import { User } from '@prisma/client';
 import { AES, enc } from 'crypto-js';
+import { Request } from 'express';
 import { sign, verify } from 'jsonwebtoken';
+import { RequestWithDecoded } from '../domains/auth';
+import { AuthUser } from '../domains/auth/auth.repository';
 
 const pwSecret = process.env.PW_SECRET || 'ksdkvjeuf8rio32vn3oigu4389gji';
 const tokenSecret = process.env.TOKEN_SECRET || 'sölfierghjfdgjhjekg';
@@ -20,7 +23,7 @@ export function decrypt(text: string): string {
   return AES.decrypt(text.toString(), pwSecret).toString(enc.Utf8);
 }
 
-export function createToken(user: User): string {
+export function createToken(user: AuthUser): string {
   return sign(user, tokenSecret, {
     expiresIn: tokenExpires,
     issuer: tokenIssuer,
@@ -50,4 +53,8 @@ export function verifyToken(token: string): VerifyTokenResult {
       body: msg,
     };
   }
+}
+
+export function getUserId(req: Request): string {
+  return (req as RequestWithDecoded).decoded.id;
 }

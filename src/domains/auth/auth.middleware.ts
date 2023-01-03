@@ -1,5 +1,9 @@
+import { User } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
-import { verifyToken } from '../helper';
+import { verifyToken } from '../../helper';
+import { AuthUser } from './auth.repository';
+
+export type RequestWithDecoded = Request & { decoded: AuthUser };
 
 export async function checkAuthState(req: Request, res: Response, next: NextFunction) {
   // get token from request
@@ -12,7 +16,10 @@ export async function checkAuthState(req: Request, res: Response, next: NextFunc
 
   // verify token
   const result = verifyToken(token);
+
+  // check result
   if (result.type === 'SUCCESS') {
+    (req as RequestWithDecoded).decoded = JSON.parse(result.body) as User;
     next();
   } else {
     return res.status(400).json({ message: result.body });

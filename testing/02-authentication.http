@@ -1,0 +1,59 @@
+### --------
+### TESTING 
+### --------
+
+### get all users
+http://localhost:3000/users
+
+### -----
+### AUTH 
+### -----
+
+### signin
+# @name login
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "lorem@ipsum.test",
+  "password": "Test1234"
+}
+
+### ---------
+### SETTINGS 
+### ---------
+
+@authToken = {{login.response.body.token}}
+
+### ---------------
+### AUTHENTICATION 
+### ---------------
+
+### CREATE apitoken
+POST http://localhost:3000/settings/authentication
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "apiToken": "1234567890"
+}
+
+### READ apitoken
+# @name auth
+GET http://localhost:3000/settings/authentication
+x-access-token: {{authToken}}
+
+@authId = {{auth.response.body.id}}
+
+### UPDATE apitoken
+PUT http://localhost:3000/settings/authentication
+Content-Type: application/json
+x-access-token: {{authToken}}
+
+{
+  "apiToken": "0987654321"
+}
+
+### DELETE apitoken
+DELETE http://localhost:3000/settings/authentication/{{authId}}
+x-access-token: {{authToken}}
