@@ -4,17 +4,20 @@
 
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
-
 import {
   ActionGroupRepository,
   ActionGroupRouter,
   ActionRepository,
   ActionRouter,
+  ActiveTasksRepository,
+  ActiveTasksRouter,
   AuthenticationRepository,
   AuthenticationRouter,
   AuthRepository,
   AuthRouter,
   checkAuthState,
+  HistoryTasksRepository,
+  HistoryTasksRouter,
 } from './domains';
 
 // init external modules
@@ -27,6 +30,8 @@ const authRouter = new AuthRouter(new AuthRepository(prisma));
 const settingAuthenticationRouter = new AuthenticationRouter(new AuthenticationRepository(prisma));
 const settingActionGroupsRouter = new ActionGroupRouter(new ActionGroupRepository(prisma));
 const settingActionsRouter = new ActionRouter(new ActionRepository(prisma));
+const tasksHistoryRouter = new HistoryTasksRouter(new HistoryTasksRepository(prisma));
+const tasksActiveRouter = new ActiveTasksRouter(new ActiveTasksRepository(prisma));
 
 // setup express
 app.use(express.json());
@@ -40,6 +45,7 @@ app.use(
   settingActionGroupsRouter.routes(),
   settingActionsRouter.routes()
 );
+app.use('/tasks', checkAuthState, tasksHistoryRouter.routes(), tasksActiveRouter.routes());
 
 // only for testing
 app.get('/users', async (req, res) => {
