@@ -16,7 +16,7 @@ const activeTasksRepo = new ActiveTasksRepository(prisma);
 const historyRepo = new HistoryTasksRepository(prisma);
 
 async function main() {
-  console.log(`Start seeding ...`);
+  console.log(`Start seeding...`);
 
   const user = await prisma.user.create({
     data: {
@@ -39,11 +39,11 @@ async function main() {
   );
 
   await Promise.all(
-    [1, 2].map((i: number) => actionRepo.create(user.id, `action #${i}`, `type${i}`, group2.id))
+    [4, 5].map((i: number) => actionRepo.create(user.id, `action #${i}`, `type${i}`, group2.id))
   );
 
   await Promise.all(
-    [1].map((i: number) => actionRepo.create(user.id, `action #${i}`, `type${i}`, group3.id))
+    [6].map((i: number) => actionRepo.create(user.id, `action #${i}`, `type${i}`, group3.id))
   );
 
   await Promise.all([1, 2, 3].map((i: number) => activeTasksRepo.create(user.id, `type${i}`)));
