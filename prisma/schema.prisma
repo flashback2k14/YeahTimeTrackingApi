@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:../db/data.db"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -63,10 +63,10 @@ model ActiveTask {
 
 model Task {
   id            String   @id @default(uuid())
-  state         String   @unique
+  state         String
   type          String   @unique
-  durationInSec Int
-  comment       String
+  durationInSec Int?
+  comment       String?
   userId        String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

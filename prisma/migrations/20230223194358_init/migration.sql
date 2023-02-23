@@ -37,8 +37,8 @@ CREATE TABLE "Action" (
     "actionGroupId" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "Action_actionGroupId_fkey" FOREIGN KEY ("actionGroupId") REFERENCES "ActionGroup" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Action_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Action_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Action_actionGroupId_fkey" FOREIGN KEY ("actionGroupId") REFERENCES "ActionGroup" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -56,8 +56,8 @@ CREATE TABLE "Task" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "state" TEXT NOT NULL,
     "type" TEXT NOT NULL,
-    "durationInSec" INTEGER NOT NULL,
-    "comment" TEXT NOT NULL,
+    "durationInSec" INTEGER,
+    "comment" TEXT,
     "userId" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
@@ -80,13 +80,7 @@ CREATE UNIQUE INDEX "Action_name_key" ON "Action"("name");
 CREATE UNIQUE INDEX "Action_type_key" ON "Action"("type");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Action_actionGroupId_key" ON "Action"("actionGroupId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "ActiveTask_type_key" ON "ActiveTask"("type");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Task_state_key" ON "Task"("state");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Task_type_key" ON "Task"("type");

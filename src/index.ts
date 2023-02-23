@@ -5,17 +5,8 @@
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
-import {
-  ActionGroupRepository,
-  ActionGroupRouter,
-  ActionRepository,
-  ActionRouter,
-  AuthenticationRepository,
-  AuthenticationRouter,
-  AuthRepository,
-  AuthRouter,
-  checkAuthState,
-} from './domains';
+import { createCheckApiTokenMiddleware, checkAuthState } from './domains';
+import { createRoutes } from './helper';
 
 // init external modules
 const prisma = new PrismaClient();
@@ -23,23 +14,16 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // init own modules
-const authRouter = new AuthRouter(new AuthRepository(prisma));
-const settingAuthenticationRouter = new AuthenticationRouter(new AuthenticationRepository(prisma));
-const settingActionGroupsRouter = new ActionGroupRouter(new ActionGroupRepository(prisma));
-const settingActionsRouter = new ActionRouter(new ActionRepository(prisma));
+const { authRoutes, settingsRoutes, tasksRoutes } = createRoutes(prisma);
+const checkApiToken = createCheckApiTokenMiddleware(prisma);
 
 // setup express
 app.use(express.json());
 
 // setup endpoints
-app.use('/auth', authRouter.routes());
-app.use(
-  '/settings',
-  checkAuthState,
-  settingAuthenticationRouter.routes(),
-  settingActionGroupsRouter.routes(),
-  settingActionsRouter.routes()
-);
+app.use('/auth', authRoutes);
+app.use('/settings', checkAuthState, ...settingsRoutes);
+app.use('/tasks', checkApiToken, ...tasksRoutes);
 
 // only for testing
 app.get('/users', async (req, res) => {

@@ -1,4 +1,4 @@
-import { Action, ActionGroup, Prisma, PrismaClient } from '@prisma/client';
+import { ActionGroup, PrismaClient } from '@prisma/client';
 
 class ActionGroupRepository {
   constructor(private prisma: PrismaClient) {}
