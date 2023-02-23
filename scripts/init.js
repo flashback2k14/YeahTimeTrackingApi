@@ -1,25 +1,23 @@
-const { promises: Fs } = require('node:fs');
+const { promises: fs } = require('node:fs');
 
-async function exists (path) {  
+async function exists(path) {
   try {
-    await Fs.access(path)
-    return true
+    await fs.access(path);
+    return true;
   } catch {
-    return false
+    return false;
   }
 }
 
-
 async function init() {
   const result = await exists('db');
-  
+
   if (result) {
     console.log('db dir already exists');
   } else {
-    await Fs.mkdir('db');
+    await fs.mkdir('db');
     console.log('db dir created');
   }
 }
 
-init()
-  .catch(err => console.error(err));
+init().catch((err) => console.error(err));

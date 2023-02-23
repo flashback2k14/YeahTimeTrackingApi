@@ -38,7 +38,6 @@ class HistoryTasksRepository {
     return await this.prisma.task.update({
       where: {
         type,
-        state: 'Running',
       },
       data: {
         state: 'Finished',

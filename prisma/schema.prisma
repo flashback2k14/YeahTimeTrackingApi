@@ -48,8 +48,8 @@ model Action {
   actionGroupId String
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  actionGroup   ActionGroup @relation(fields: [actionGroupId], references: [id])
   user          User        @relation(fields: [userId], references: [id])
+  actionGroup   ActionGroup @relation(fields: [actionGroupId], references: [id])
 }
 
 model ActiveTask {
@@ -63,7 +63,7 @@ model ActiveTask {
 
 model Task {
   id            String   @id @default(uuid())
-  state         String   @unique
+  state         String
   type          String   @unique
   durationInSec Int?
   comment       String?

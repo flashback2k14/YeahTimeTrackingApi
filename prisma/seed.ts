@@ -16,7 +16,7 @@ const activeTasksRepo = new ActiveTasksRepository(prisma);
 const historyRepo = new HistoryTasksRepository(prisma);
 
 async function main() {
-  console.log(`Start seeding...`);
+  console.log('Start seeding...');
 
   const user = await prisma.user.create({
     data: {
@@ -30,29 +30,47 @@ async function main() {
 
   await authRepo.create(user.id, '1234567890');
 
-  const [group1, group2, group3] = await Promise.all(
-    [1, 2, 3].map((i: number) => actionGroupRepo.create(user.id, `group #${i}`))
-  );
+  console.log(`Created authentication for user with id: ${user.id}`);
 
-  await Promise.all(
-    [1, 2, 3].map((i: number) => actionRepo.create(user.id, `action #${i}`, `type${i}`, group1.id))
-  );
+  const group1 = await actionGroupRepo.create(user.id, 'group #1');
+  const group2 = await actionGroupRepo.create(user.id, 'group #2');
+  const group3 = await actionGroupRepo.create(user.id, 'group #3');
 
-  await Promise.all(
-    [4, 5].map((i: number) => actionRepo.create(user.id, `action #${i}`, `type${i}`, group2.id))
-  );
+  console.log(`Created action groups for user with id: ${user.id}`);
 
-  await Promise.all(
-    [6].map((i: number) => actionRepo.create(user.id, `action #${i}`, `type${i}`, group3.id))
-  );
+  await actionRepo.create(user.id, 'action #1', 'type1', group1.id);
+  await actionRepo.create(user.id, 'action #2', 'type2', group1.id);
+  await actionRepo.create(user.id, 'action #3', 'type3', group1.id);
 
-  await Promise.all([1, 2, 3].map((i: number) => activeTasksRepo.create(user.id, `type${i}`)));
+  await actionRepo.create(user.id, 'action #4', 'type4', group2.id);
+  await actionRepo.create(user.id, 'action #5', 'type5', group2.id);
 
-  await Promise.all([1, 2, 3, 4, 5, 6].map((i: number) => historyRepo.create(user.id, `type${i}`)));
+  await actionRepo.create(user.id, 'action #6', 'type6', group3.id);
 
-  await Promise.all([4, 5, 6].map((i: number) => historyRepo.update(user.id, `type${i}`)));
+  console.log(`Created actions for user with id: ${user.id}`);
 
-  console.log(`Seeding finished.`);
+  await activeTasksRepo.create(user.id, 'type1');
+  await activeTasksRepo.create(user.id, 'type2');
+  await activeTasksRepo.create(user.id, 'type3');
+
+  console.log(`Created active tasks for user with id: ${user.id}`);
+
+  await historyRepo.create(user.id, 'type1');
+  await historyRepo.create(user.id, 'type2');
+  await historyRepo.create(user.id, 'type3');
+  await historyRepo.create(user.id, 'type4');
+  await historyRepo.create(user.id, 'type5');
+  await historyRepo.create(user.id, 'type6');
+
+  console.log(`Created history tasks for user with id: ${user.id}`);
+
+  await historyRepo.update(user.id, 'type4');
+  await historyRepo.update(user.id, 'type5');
+  await historyRepo.update(user.id, 'type6');
+
+  console.log(`Updated history tasks for user with id: ${user.id}`);
+
+  console.log('Seeding finished.');
 }
 
 main()
