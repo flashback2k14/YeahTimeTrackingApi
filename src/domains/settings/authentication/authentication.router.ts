@@ -10,6 +10,14 @@ class AuthenticationRouter extends AbstractRouter {
 
   init(): void {
     this.router.get('/authentication', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Authentication']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.getBy(userId);
@@ -20,6 +28,14 @@ class AuthenticationRouter extends AbstractRouter {
     });
 
     this.router.post('/authentication', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Authentication']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.create(userId, req.body.apiToken);
@@ -30,6 +46,14 @@ class AuthenticationRouter extends AbstractRouter {
     });
 
     this.router.put('/authentication', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Authentication']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.update(userId, req.body.apiToken);
@@ -40,6 +64,14 @@ class AuthenticationRouter extends AbstractRouter {
     });
 
     this.router.delete('/authentication/:id', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Authentication']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const { id } = req.params;

@@ -10,13 +10,17 @@ async function exists(path) {
 }
 
 async function init() {
-  const result = await exists('db');
+  const dirs = ['db', 'static'];
 
-  if (result) {
-    console.log('db dir already exists');
-  } else {
-    await fs.mkdir('db');
-    console.log('db dir created');
+  for (const dir of dirs) {
+    const result = await exists(dir);
+
+    if (result) {
+      console.log(`Directory ${dir} already exists`);
+    } else {
+      await fs.mkdir(dir);
+      console.log(`Directory ${dir} created`);
+    }
   }
 }
 

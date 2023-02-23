@@ -10,6 +10,14 @@ class ActionGroupRouter extends AbstractRouter {
 
   init(): void {
     this.router.get('/action-groups', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action group']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.getAllBy(userId);
@@ -20,6 +28,14 @@ class ActionGroupRouter extends AbstractRouter {
     });
 
     this.router.post('/action-groups', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action group']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.create(userId, req.body.name);
@@ -30,6 +46,14 @@ class ActionGroupRouter extends AbstractRouter {
     });
 
     this.router.put('/action-groups/:id', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action group']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const { id } = req.params;
@@ -41,6 +65,14 @@ class ActionGroupRouter extends AbstractRouter {
     });
 
     this.router.delete('/action-groups/:id', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action group']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const { id } = req.params;

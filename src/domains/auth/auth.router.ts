@@ -9,6 +9,7 @@ class AuthRouter extends AbstractRouter {
 
   init(): void {
     this.router.post('/signin', async (req: Request, res: Response) => {
+      // #swagger.tags = ['Authentication']
       try {
         const data = await this.repo.signIn(req.body.email, req.body.password);
         res.status(200).json(data);
@@ -18,6 +19,7 @@ class AuthRouter extends AbstractRouter {
     });
 
     this.router.post('/signup', async (req: Request, res: Response) => {
+      // #swagger.tags = ['Authentication']
       try {
         const data = await this.repo.signUp(req.body.email, req.body.password);
         res.status(200).json(data);

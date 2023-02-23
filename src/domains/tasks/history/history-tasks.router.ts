@@ -10,6 +10,14 @@ class HistoryTasksRouter extends AbstractRouter {
 
   init(): void {
     this.router.get('/history-tasks', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Tasks \ History task']
+        #swagger.security = [{
+          "apiHeader": [],
+          "apiBody": [],
+          "apiQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.getAllBy(userId);

@@ -1,9 +1,15 @@
-// https://www.digitalocean.com/community/tutorials/how-to-build-a-rest-api-with-prisma-and-postgresql
-// https://github.com/prisma/prisma-examples/blob/latest/typescript/rest-express
-// https://www.prisma.io/docs/concepts/components/prisma-schema/relations/one-to-one-relations
+// https://dev.to/moekidev/testing-with-prisma-3eo8
+// https://www.prisma.io/docs/guides/testing/unit-testing
+// https://rrawat.com/blog/unit-test-express-api
+// https://dev.to/nathan_sheryak/how-to-test-a-typescript-express-api-with-jest-for-dummies-like-me-4epd
+// https://github.com/davibaltar/swagger-autogen
+// https://www.npmjs.com/package/swagger-ui-express
 
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
+
+import SwaggerUi from 'swagger-ui-express';
+import * as swaggerDocument from '../static/swagger-openapi.json';
 
 import { createCheckApiTokenMiddleware, checkAuthState } from './domains';
 import { createRoutes } from './helper';
@@ -24,6 +30,9 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/settings', checkAuthState, ...settingsRoutes);
 app.use('/tasks', checkApiToken, ...tasksRoutes);
+
+// setup swagger
+app.use('/api-docs', SwaggerUi.serve, SwaggerUi.setup(swaggerDocument));
 
 // only for testing
 app.get('/users', async (req, res) => {
