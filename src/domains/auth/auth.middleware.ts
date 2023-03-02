@@ -1,5 +1,6 @@
 import { PrismaClient, User } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
+import { IncomingHttpHeaders } from 'http';
 import { verifyToken, verifyApiToken } from '../../helper';
 import { AuthUser } from './auth.repository';
 
@@ -47,4 +48,49 @@ export function createCheckApiTokenMiddleware(prisma: PrismaClient) {
       return res.status(400).json({ message: result.body });
     }
   };
+}
+
+export function checkBasicAuth(req: Request, res: Response, next: NextFunction) {
+  function _getUserFromHeader(headers: IncomingHttpHeaders) {
+    const authHeader = headers['authorization'] ?? '';
+    const base64UserCred = authHeader.split(' ')[1];
+    const userCred = Buffer.from(base64UserCred, 'base64').toString();
+    const username = userCred.split(':')[0];
+    const pw = userCred.split(':')[1];
+    return { username, pw };
+  }
+
+  function _getAllowedUsers() {
+    const splittedUsers = process.env.DOC_USERS?.split(' ') ?? [];
+    return splittedUsers
+      .map((user: string) => user.split(':'))
+      .map((splits: string[]) => ({ username: splits[0], pw: splits[1] }));
+  }
+
+  if (!('authorization' in req.headers)) {
+    res.set('WWW-Authenticate', 'Basic realm="401"');
+    res.status(401).send('Authentication required. Authorization header is missing.');
+    return;
+  }
+
+  const requestedUser = _getUserFromHeader(req.headers);
+  const allowedUsers = _getAllowedUsers();
+
+  const foundAllowedUser = allowedUsers.find(
+    (allowedUser) => allowedUser.username === requestedUser.username
+  );
+
+  if (!foundAllowedUser) {
+    res.set('WWW-Authenticate', 'Basic realm="401"');
+    res.status(401).send('Authentication required. Wrong username / password.');
+    return;
+  }
+
+  if (requestedUser.pw !== foundAllowedUser.pw) {
+    res.set('WWW-Authenticate', 'Basic realm="401"');
+    res.status(401).send('Authentication required. Password mismatch.');
+    return;
+  }
+
+  return next();
 }
