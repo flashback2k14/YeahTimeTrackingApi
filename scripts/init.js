@@ -10,7 +10,7 @@ async function exists(path) {
 }
 
 async function init() {
-  const dirs = ['db', 'static'];
+  const dirs = ['db', 'public/static'];
 
   for (const dir of dirs) {
     const result = await exists(dir);

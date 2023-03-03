@@ -54,7 +54,7 @@ const doc = {
   },
 };
 
-const outputFile = './static/swagger-openapi.json';
+const outputFile = './public/static/swagger-openapi.json';
 const endpointsFiles = [
   './src/index.ts',
   './src/domains/auth/auth.router.ts',
