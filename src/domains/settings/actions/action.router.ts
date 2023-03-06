@@ -10,6 +10,14 @@ class ActionRouter extends AbstractRouter {
 
   init(): void {
     this.router.get('/actions', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.getAllBy(userId);
@@ -20,6 +28,14 @@ class ActionRouter extends AbstractRouter {
     });
 
     this.router.post('/actions', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const { name, type, groupId } = req.body;
@@ -31,6 +47,14 @@ class ActionRouter extends AbstractRouter {
     });
 
     this.router.put('/actions/:id', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const { id } = req.params;
@@ -42,6 +66,14 @@ class ActionRouter extends AbstractRouter {
     });
 
     this.router.delete('/actions/:id', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Settings \ Action']
+        #swagger.security = [{
+          "accessHeader": [],
+          "accessBody": [],
+          "accessQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const { id } = req.params;
