@@ -1,5 +1,5 @@
 {
-  "exclude": ["./coverage", "./dist", "jest.config.js"],
+  "exclude": ["./coverage", "./dist", "jest.config.js", "src/**/*.test.ts"],
   "compilerOptions": {
     "rootDirs": ["src", "prisma"],
     "outDir": "./dist",

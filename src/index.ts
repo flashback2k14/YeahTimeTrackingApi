@@ -3,7 +3,7 @@
 // TODO: add components and refs to docs
 // https://github.com/davibaltar/swagger-autogen
 
-import app from './app';
+import app from './app/app';
 
 const port = process.env.PORT || 3000;
 

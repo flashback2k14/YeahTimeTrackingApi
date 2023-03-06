@@ -2,10 +2,10 @@ import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
 import SwaggerUi from 'swagger-ui-express';
-import * as swaggerDocument from '../public/static/swagger-openapi.json';
+import * as swaggerDocument from '../../public/static/swagger-openapi.json';
 
-import { createCheckApiTokenMiddleware, checkAuthState, checkBasicAuth } from './domains';
-import { createRoutes } from './helper';
+import { createCheckApiTokenMiddleware, checkAuthState, checkBasicAuth } from '../domains';
+import { createRoutes } from '../helper';
 
 // init external modules
 const prisma = new PrismaClient();
