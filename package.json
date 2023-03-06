@@ -25,7 +25,7 @@
     "2-DEV-TASKS": "echo '#############################################'",
     "start:dev": "DB_ENV=dev npm run prisma:reset && concurrently 'npm:tsc-watch' 'npm:node-watch'",
     "tsc-watch": "npx tsc --watch",
-    "node-watch": "NODE_ENV=development dotenv -e .env.dev nodemon -q dist/src/index.js",
+    "node-watch": "NODE_ENV=development dotenv -e .env.dev nodemon -q src/index.ts",
     "3-PROD-TASKS": "echo '#############################################'",
     "build": "npx tsc",
     "start": "NODE_ENV=production dotenv -e .env.prod node dist/src/index.js",
