@@ -1,7 +1,7 @@
 {
-  "exclude": ["./coverage", "./dist", "jest.config.js", "src/**/*.test.ts"],
+  "exclude": ["./coverage", "./dist", "./prisma", "jest.config.js", "src/**/*.test.ts"],
   "compilerOptions": {
-    "rootDirs": ["src", "prisma"],
+    "rootDirs": ["src"],
     "outDir": "./dist",
     "lib": ["esnext"],
     "target": "es2016",

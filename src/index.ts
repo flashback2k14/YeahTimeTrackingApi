@@ -1,6 +1,5 @@
 // TODO: add components and refs to docs
 //  https://github.com/davibaltar/swagger-autogen
-// TODO: add cors and helmet
 
 import app from './app/app';
 
