@@ -52,6 +52,70 @@ const doc = {
         'API access token as request URL query param: Get token from `/authentication` endpoint',
     },
   },
+  components: {
+    AuthUser: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'string',
+          format: 'uuid',
+          example: 'd741861a-3967-4503-90f2-afc8ee45fef8',
+        },
+        name: {
+          type: 'string',
+          example: 'john',
+        },
+        email: {
+          type: 'string',
+          format: 'email',
+          example: 'john@doe.test',
+        },
+        createdAt: {
+          type: 'string',
+          format: 'date-time',
+          example: '2023-03-06T09:13:23.522Z',
+        },
+        updatedAt: {
+          type: 'string',
+          format: 'date-time',
+          example: '2023-03-06T09:13:23.522Z',
+        },
+      },
+    },
+    AuthRequest: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+          format: 'email',
+          description: 'User email address.',
+          example: 'john@doe.test',
+        },
+        password: {
+          type: 'string',
+          format: 'password',
+          description: 'User password.',
+          example: '123456',
+        },
+      },
+    },
+    AuthResponse: {
+      type: 'object',
+      properties: {
+        token: {
+          type: 'string',
+          description: 'User auth token.',
+          example: 'dfdg.wertdf.wewetsfdfg',
+        },
+        user: {
+          $ref: '#/components/AuthUser',
+        },
+      },
+    },
+    ApiErrorResponse: {
+      type: 'object',
+    },
+  },
 };
 
 const outputFile = './public/static/swagger-openapi.json';
