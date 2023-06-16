@@ -9,15 +9,32 @@ class ActionRouter extends AbstractRouter {
   }
 
   init(): void {
+    /**
+     * @openapi
+     *
+     * /settings/actions:
+     *  get:
+     *    tags:
+     *      - 'Settings - Action'
+     *    security:
+     *     - accessHeader: []
+     *     - accessBody: []
+     *     - accessQuery: []
+     *    responses:
+     *      '200':
+     *        description: Successful response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ActionGroupsResponse'
+     *      '400':
+     *        description: Failed response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ApiErrorResponse'
+     */
     this.router.get('/actions', async (req: Request, res: Response) => {
-      /*
-        #swagger.tags = ['Settings \ Action']
-        #swagger.security = [{
-          "accessHeader": [],
-          "accessBody": [],
-          "accessQuery": [],
-        }]
-      */
       try {
         const userId = getUserId(req);
         const data = await this.repo.getAllBy(userId);
@@ -27,15 +44,38 @@ class ActionRouter extends AbstractRouter {
       }
     });
 
+    /**
+     * @openapi
+     *
+     * /settings/actions:
+     *  post:
+     *    tags:
+     *      - 'Settings - Action'
+     *    security:
+     *     - accessHeader: []
+     *     - accessBody: []
+     *     - accessQuery: []
+     *    requestBody:
+     *      required: true
+     *      content:
+     *        application/json:
+     *          schema:
+     *            $ref: '#/components/schemas/ActionRequest'
+     *    responses:
+     *      '200':
+     *        description: Successful response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ActionResponse'
+     *      '400':
+     *        description: Failed response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ApiErrorResponse'
+     */
     this.router.post('/actions', async (req: Request, res: Response) => {
-      /*
-        #swagger.tags = ['Settings \ Action']
-        #swagger.security = [{
-          "accessHeader": [],
-          "accessBody": [],
-          "accessQuery": [],
-        }]
-      */
       try {
         const userId = getUserId(req);
         const { name, type, groupId } = req.body;
@@ -46,15 +86,45 @@ class ActionRouter extends AbstractRouter {
       }
     });
 
+    /**
+     * @openapi
+     *
+     * /settings/actions/{id}:
+     *  put:
+     *    tags:
+     *      - 'Settings - Action'
+     *    security:
+     *     - accessHeader: []
+     *     - accessBody: []
+     *     - accessQuery: []
+     *    parameters:
+     *      - in: path
+     *        name: id
+     *        schema:
+     *          type: string
+     *        required: true
+     *        description: action id
+     *    requestBody:
+     *      required: true
+     *      content:
+     *        application/json:
+     *          schema:
+     *            $ref: '#/components/schemas/ActionRequest'
+     *    responses:
+     *      '200':
+     *        description: Successful response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ActionResponse'
+     *      '400':
+     *        description: Failed response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ApiErrorResponse'
+     */
     this.router.put('/actions/:id', async (req: Request, res: Response) => {
-      /*
-        #swagger.tags = ['Settings \ Action']
-        #swagger.security = [{
-          "accessHeader": [],
-          "accessBody": [],
-          "accessQuery": [],
-        }]
-      */
       try {
         const userId = getUserId(req);
         const { id } = req.params;
@@ -65,15 +135,39 @@ class ActionRouter extends AbstractRouter {
       }
     });
 
+    /**
+     * @openapi
+     *
+     * /settings/actions/{id}:
+     *  delete:
+     *    tags:
+     *      - 'Settings - Action'
+     *    security:
+     *     - accessHeader: []
+     *     - accessBody: []
+     *     - accessQuery: []
+     *    parameters:
+     *      - in: path
+     *        name: id
+     *        schema:
+     *          type: string
+     *        required: true
+     *        description: action id
+     *    responses:
+     *      '200':
+     *        description: Successful response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ActionResponse'
+     *      '400':
+     *        description: Failed response
+     *        content:
+     *          application/json:
+     *            schema:
+     *              $ref: '#/components/schemas/ApiErrorResponse'
+     */
     this.router.delete('/actions/:id', async (req: Request, res: Response) => {
-      /*
-        #swagger.tags = ['Settings \ Action']
-        #swagger.security = [{
-          "accessHeader": [],
-          "accessBody": [],
-          "accessQuery": [],
-        }]
-      */
       try {
         const userId = getUserId(req);
         const { id } = req.params;

@@ -5,659 +5,24 @@
     "version": "1.0.0",
     "description": "Yeah! Time tracking API"
   },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "servers": [
     {
-      "url": "http://localhost:3000/"
+      "url": "http://localhost:3000"
     },
     {
-      "url": "https://localhost:3000/"
+      "url": "https://localhost:3000"
+    },
+    {
+      "url": "https://ytt-api.flbk.tech"
     }
   ],
-  "paths": {
-    "/signin": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/AuthResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Failed response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/AuthRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/signup": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/AuthResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Failed response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/AuthRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/authentication": {
-      "get": {
-        "tags": [
-          "Settings \\ Authentication"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Settings \\ Authentication"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "apiToken": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Settings \\ Authentication"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "apiToken": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/authentication/{id}": {
-      "delete": {
-        "tags": [
-          "Settings \\ Authentication"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ]
-      }
-    },
-    "/action-groups": {
-      "get": {
-        "tags": [
-          "Settings \\ Action group"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Settings \\ Action group"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/action-groups/{id}": {
-      "put": {
-        "tags": [
-          "Settings \\ Action group"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Settings \\ Action group"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ]
-      }
-    },
-    "/actions": {
-      "get": {
-        "tags": [
-          "Settings \\ Action"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Settings \\ Action"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "type": {
-                    "example": "any"
-                  },
-                  "groupId": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/actions/{id}": {
-      "put": {
-        "tags": [
-          "Settings \\ Action"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "example": "any"
-                  },
-                  "type": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Settings \\ Action"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "accessHeader": [],
-            "accessBody": [],
-            "accessQuery": []
-          }
-        ]
-      }
-    },
-    "/active-tasks": {
-      "get": {
-        "tags": [
-          "Tasks \\ Active task"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "apiHeader": [],
-            "apiBody": [],
-            "apiQuery": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Tasks \\ Active task"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "apiHeader": [],
-            "apiBody": [],
-            "apiQuery": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/history-tasks": {
-      "get": {
-        "tags": [
-          "Tasks \\ History task"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "security": [
-          {
-            "apiHeader": [],
-            "apiBody": [],
-            "apiQuery": []
-          }
-        ]
-      }
-    }
-  },
   "components": {
-    "AuthUser": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uuid",
-          "example": "d741861a-3967-4503-90f2-afc8ee45fef8"
-        },
-        "name": {
-          "type": "string",
-          "example": "john"
-        },
-        "email": {
-          "type": "string",
-          "format": "email",
-          "example": "john@doe.test"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2023-03-06T09:13:23.522Z"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2023-03-06T09:13:23.522Z"
-        }
-      }
-    },
-    "AuthRequest": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string",
-          "format": "email",
-          "description": "User email address.",
-          "example": "john@doe.test"
-        },
-        "password": {
-          "type": "string",
-          "format": "password",
-          "description": "User password.",
-          "example": "123456"
-        }
-      }
-    },
-    "AuthResponse": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string",
-          "description": "User auth token.",
-          "example": "dfdg.wertdf.wewetsfdfg"
-        },
-        "user": {
-          "$ref": "#/components/AuthUser"
-        }
-      }
-    },
-    "ApiErrorResponse": {
-      "type": "object"
-    },
     "securitySchemes": {
       "accessHeader": {
         "type": "apiKey",
@@ -695,6 +60,671 @@
         "name": "apitoken",
         "description": "API access token as request URL query param: Get token from `/authentication` endpoint"
       }
+    },
+    "schemas": {
+      "ApiErrorResponse": {
+        "type": "object"
+      },
+      "Id": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d741861a-3967-4503-90f2-afc8ee45fef8"
+          }
+        }
+      },
+      "UserId": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d741861a-3967-4503-90f2-afc8ee45fef8"
+          }
+        }
+      },
+      "Dates": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-03-06T09:13:23.522Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-03-06T09:13:23.522Z"
+          }
+        }
+      },
+      "AuthRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User email address.",
+            "example": "john@doe.test"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "User password.",
+            "example": "123456"
+          }
+        }
+      },
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User auth token.",
+            "example": "dfdg.wertdf.wewetsfdfg"
+          },
+          "user": {
+            "$ref": "#/components/schemas/AuthUser"
+          }
+        }
+      },
+      "AuthUser": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Id"
+          },
+          {
+            "$ref": "#/components/schemas/Dates"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "john"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "example": "john@doe.test"
+              }
+            }
+          }
+        ]
+      },
+      "ActionGroupRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "action group name.",
+            "example": "action group #1"
+          }
+        }
+      },
+      "ActionGroupsResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ActionGroup"
+        }
+      },
+      "ActionGroupResponse": {
+        "$ref": "#/components/schemas/ActionGroup"
+      },
+      "ActionGroup": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Id"
+          },
+          {
+            "$ref": "#/components/schemas/UserId"
+          },
+          {
+            "$ref": "#/components/schemas/Dates"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "action group #1"
+              }
+            }
+          }
+        ]
+      },
+      "ActionRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "action #1"
+          },
+          "type": {
+            "type": "string",
+            "example": "type #1"
+          }
+        }
+      },
+      "ActionsResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Action"
+        }
+      },
+      "ActionResponse": {
+        "$ref": "#/components/schemas/Action"
+      },
+      "Action": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Id"
+          },
+          {
+            "$ref": "#/components/schemas/UserId"
+          },
+          {
+            "$ref": "#/components/schemas/Dates"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "action #1"
+              },
+              "type": {
+                "type": "string",
+                "example": "type #1"
+              },
+              "actionGroupId": {
+                "type": "string",
+                "format": "uuid",
+                "example": "d741861a-3967-4503-90f2-afc8ee45fef8"
+              }
+            }
+          }
+        ]
+      }
     }
-  }
+  },
+  "paths": {
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/action-groups": {
+      "get": {
+        "tags": [
+          "Settings - Action group"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionGroupsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Settings - Action group"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActionGroupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionGroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/action-groups/{id}": {
+      "put": {
+        "tags": [
+          "Settings - Action group"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "action group id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActionGroupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionGroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Settings - Action group"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "action group id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionGroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/actions": {
+      "get": {
+        "tags": [
+          "Settings - Action"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionGroupsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Settings - Action"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/settings/actions/{id}": {
+      "put": {
+        "tags": [
+          "Settings - Action"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "action id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Settings - Action"
+        ],
+        "security": [
+          {
+            "accessHeader": []
+          },
+          {
+            "accessBody": []
+          },
+          {
+            "accessQuery": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "action id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
 }
