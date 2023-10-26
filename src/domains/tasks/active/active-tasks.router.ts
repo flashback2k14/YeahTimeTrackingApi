@@ -10,6 +10,14 @@ class ActiveTasksRouter extends AbstractRouter {
 
   init(): void {
     this.router.get('/active-tasks', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Tasks \ Active task']
+        #swagger.security = [{
+          "apiHeader": [],
+          "apiBody": [],
+          "apiQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.service.getAllActiveTasksBy(userId);
@@ -20,6 +28,14 @@ class ActiveTasksRouter extends AbstractRouter {
     });
 
     this.router.post('/active-tasks', async (req: Request, res: Response) => {
+      /*
+        #swagger.tags = ['Tasks \ Active task']
+        #swagger.security = [{
+          "apiHeader": [],
+          "apiBody": [],
+          "apiQuery": [],
+        }]
+      */
       try {
         const userId = getUserId(req);
         const data = await this.service.create(userId, req.body.type);
